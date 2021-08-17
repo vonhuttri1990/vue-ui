@@ -1,0 +1,10 @@
+image: docker
+services:
+  - docker:dind
+stages:
+  - deploy
+step-deploy-prod:
+  stage: deploy
+  script:
+    - docker build -t vuejs-demo .
+    - docker run -d -p 8080:80 --rm --name vuejs vuejs-demo
