@@ -4,6 +4,12 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+RUN addgroup -g 1002 appgroup
+RUN adduser -D -u 1001 appuser -G appgroup
+RUN chown -R appuser:appgroup /app
+USER appuser
+
 RUN npm run build
 
 # production stage
